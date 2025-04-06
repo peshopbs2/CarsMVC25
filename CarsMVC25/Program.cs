@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using CarsMVC25.Data;
+using CarsMVC25.Services.Abstractions;
+using CarsMVC25.Services;
+using CarsMVC25.Data.Repositories.Abstractions;
+using CarsMVC25.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +17,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddTransient(typeof(ICrudRepository<>), typeof(CrudRepository<>));
+builder.Services.AddTransient<ICarService, CarService>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

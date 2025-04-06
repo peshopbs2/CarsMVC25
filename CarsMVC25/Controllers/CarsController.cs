@@ -7,22 +7,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarsMVC25.Data;
 using CarsMVC25.Data.Entities;
+using CarsMVC25.Services.Abstractions;
+using CarsMVC25.Services.DTOs;
 
 namespace CarsMVC25.Controllers
 {
     public class CarsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ICarService _carService;
 
-        public CarsController(ApplicationDbContext context)
+        public CarsController(ICarService carService)
         {
-            _context = context;
+            _carService = carService;
         }
 
         // GET: Cars
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Cars.ToListAsync());
+            return View(await _carService.GetAllAsync());
         }
 
         // GET: Cars/Details/5
@@ -33,8 +35,7 @@ namespace CarsMVC25.Controllers
                 return NotFound();
             }
 
-            var car = await _context.Cars
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var car = await _carService.GetByIdAsync(id.Value);
             if (car == null)
             {
                 return NotFound();
@@ -54,15 +55,14 @@ namespace CarsMVC25.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Brand,Model,Year,Color,Fuel,ImageUrl")] Car car)
+        public async Task<IActionResult> Create(CarDTO model)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(car);
-                await _context.SaveChangesAsync();
+                await _carService.AddAsync(model);
                 return RedirectToAction(nameof(Index));
             }
-            return View(car);
+            return View(model);
         }
 
         // GET: Cars/Edit/5
@@ -73,7 +73,7 @@ namespace CarsMVC25.Controllers
                 return NotFound();
             }
 
-            var car = await _context.Cars.FindAsync(id);
+            var car = await _carService.GetByIdAsync(id.Value);
             if (car == null)
             {
                 return NotFound();
@@ -86,34 +86,19 @@ namespace CarsMVC25.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Brand,Model,Year,Color,Fuel,ImageUrl")] Car car)
+        public async Task<IActionResult> Edit(int id, CarDTO model)
         {
-            if (id != car.Id)
+            if (id != model.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(car);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CarExists(car.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                await _carService.UpdateAsync(model);
                 return RedirectToAction(nameof(Index));
             }
-            return View(car);
+            return View(model);
         }
 
         // GET: Cars/Delete/5
@@ -124,8 +109,7 @@ namespace CarsMVC25.Controllers
                 return NotFound();
             }
 
-            var car = await _context.Cars
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var car = await _carService.GetByIdAsync(id.Value);
             if (car == null)
             {
                 return NotFound();
@@ -139,19 +123,8 @@ namespace CarsMVC25.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var car = await _context.Cars.FindAsync(id);
-            if (car != null)
-            {
-                _context.Cars.Remove(car);
-            }
-
-            await _context.SaveChangesAsync();
+            await _carService.DeleteByIdAsync(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool CarExists(int id)
-        {
-            return _context.Cars.Any(e => e.Id == id);
         }
     }
 }

@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CarsMVC25.Data\CarsMVC25.Data.csproj" />
+    <ProjectReference Include="..\CarsMVC25.Services\CarsMVC25.Services.csproj" />
   </ItemGroup>
 
 </Project>
