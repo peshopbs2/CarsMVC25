@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace CarsMVC25.Data.Entities
 {
-    public class Car
+    public class Car : BaseEntity
     {
-        public int Id { get; set; }
         public string Brand { get; set; }
         public string Model { get; set; }
         public int Year { get; set; }
