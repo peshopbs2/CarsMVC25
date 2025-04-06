@@ -9,7 +9,7 @@ namespace CarsMVC25.Data.Entities
     public class Car : BaseEntity
     {
         public string Brand { get; set; }
-        public string Model { get; set; }
+        public string ModelName { get; set; }
         public int Year { get; set; }
         public string Color { get; set; }
         public string Fuel { get; set; }

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarsMVC25", "CarsMVC25\Cars
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarsMVC25.Data", "CarsMVC25.Data\CarsMVC25.Data.csproj", "{B19D650A-984B-4850-87E2-2C3FD60C33B7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarsMVC25.Services", "CarsMVC25.Services\CarsMVC25.Services.csproj", "{7F196CE8-CC4F-4184-B4B7-194D649182B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B19D650A-984B-4850-87E2-2C3FD60C33B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B19D650A-984B-4850-87E2-2C3FD60C33B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B19D650A-984B-4850-87E2-2C3FD60C33B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F196CE8-CC4F-4184-B4B7-194D649182B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F196CE8-CC4F-4184-B4B7-194D649182B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F196CE8-CC4F-4184-B4B7-194D649182B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F196CE8-CC4F-4184-B4B7-194D649182B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
