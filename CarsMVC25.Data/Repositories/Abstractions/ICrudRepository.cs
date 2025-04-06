@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CarsMVC25.Data.Repositories.Abstractions
 {
-    interface ICrudRepository<T>
+    public interface ICrudRepository<T>
         where T : BaseEntity
     {
         public Task AddAsync(T entity);
